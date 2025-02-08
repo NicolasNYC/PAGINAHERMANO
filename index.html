@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 [Nombre de tu hermano] en acción 🔥</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilo para la imagen nublada */
+        .main-image {
+            filter: blur(20px); /* Aplica el desenfoque */
+            transition: filter 1s ease;
+        }
+
+        /* Estilo para el contenedor de la imagen */
+        .image-container {
+            position: relative;
+        }
+
+        /* Estilo para el botón */
+        .reveal-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ff5733;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 25px; /* Bordes redondeados */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Sombra suave */
+        }
+
+        /* Esconde elementos cuando se aplica la clase "hidden" */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>😏 ¡Mira quién llegó al mundo del placer! 🔥</h1>
+
+        <!-- Contenedor de la imagen con el filtro de desenfoque -->
+        <div class="image-container">
+            <img id="imagen-hermano" src="foto.jpg.jpeg" alt="Tu hermano en acción" class="main-image">
+            <button id="reveal-btn" class="reveal-button" onclick="revelarImagen()">Revelar imagen 🔥</button>
+        </div>
+
+        <p class="description">"No creerás lo que hace este hombre cuando está solo en casa 😱😈"</p>
+
+        <!-- Botón "Ver más" oculto inicialmente -->
+        <button id="ver-mas-btn" class="hidden" onclick="mostrarContenido()">Ver más 🔥</button>
+
+        <!-- Contenedor para mensaje de carga y cuenta atrás -->
+        <div id="mensaje-cargando" class="hidden">
+            <p id="mensaje-carga-grande">🔄 Cargando video... Se mostrará en <span id="contador">10</span> segundos.</p>
+            <p id="mensaje-complementario">Espera un poco... ⏳</p>
+        </div>
+
+        <!-- Contenido adicional (GIF y sonido) -->
+        <div id="contenido-adicional" class="hidden">
+            <audio id="gemido" src="gemido.mp3.mp3" preload="auto"></audio>
+            <img src="baile.gif.gif" alt="Bailando" class="baile-gif">
+            <p id="mensaje-final" class="hidden">¡Disfruta del video! 🎉</p>
+        </div>
+
+        <!-- Música de fondo -->
+        <audio id="musica-fondo" src="musica-fondo.mp3" preload="auto" loop></audio>
+    </div>
+
+    <script>
+        // Reproducir la música de fondo cuando el usuario haga clic en el botón de "Ver más"
+        function mostrarContenido() {
+            document.getElementById("musica-fondo").play();
+    
+            // Ocultar el contenido inicial
+            document.querySelector("button").classList.add("hidden");
+            document.querySelector("h1").classList.add("hidden");
+            document.querySelector(".description").classList.add("hidden");
+            document.getElementById("imagen-hermano").classList.add("hidden"); // Ocultar la imagen de tu hermano
+    
+            // Mostrar el mensaje de carga
+            document.getElementById("mensaje-cargando").classList.remove("hidden");
+    
+            // Contar hacia atrás desde 10 segundos y mostrar mensajes cada 3 segundos
+            let contador = 10;
+            let interval = setInterval(function() {
+                contador--;
+                document.getElementById("contador").textContent = contador; // Actualizar el contador
+    
+                // Mostrar mensajes cada 3 segundos
+                if (contador === 7) {
+                    document.getElementById("mensaje-complementario").textContent = "Ya falta menos... 😎";
+                } else if (contador === 4) {
+                    document.getElementById("mensaje-complementario").textContent = "¡Caliéntate! 🔥";
+                } else if (contador === 2) {
+                    document.getElementById("mensaje-complementario").textContent = "¡Está por comenzar! 🎉";
+                }
+    
+                // Cuando llegue a 0, mostrar el contenido adicional y reproducir el audio
+                if (contador === 0) {
+                    clearInterval(interval); // Detener el conteo hacia atrás
+                    document.getElementById("mensaje-carga-grande").textContent = "¡Listo! 🎬";
+                    document.getElementById("mensaje-complementario").classList.add("hidden");
+                    document.getElementById("contenido-adicional").classList.remove("hidden");
+                    
+                    // Detener la música de fondo cuando empiece la música del meme
+                    document.getElementById("musica-fondo").pause();
+                    
+                    // Reproducir el gemido (música del meme)
+                    document.getElementById("gemido").play();
+    
+                    // Mostrar mensaje final después de 1 segundo
+                    setTimeout(function() {
+                        document.getElementById("mensaje-final").classList.remove("hidden");
+                    }, 1000);
+                }
+            }, 1000); // 1 segundo para cada paso en el conteo
+        }
+    
+        // Función para revelar la imagen con un conteo de 7 segundos
+        function revelarImagen() {
+            let contador = 7; // Ajustamos el conteo a 7 segundos
+            let revealBtn = document.getElementById("reveal-btn");
+            revealBtn.innerHTML = `Esperando... ${contador} segundos`; // Actualizar el texto del botón
+    
+            // Reproducir la música de fondo cuando se presiona el botón
+            document.getElementById("musica-fondo").play();
+    
+            let interval = setInterval(function() {
+                contador--;
+                revealBtn.innerHTML = `Esperando... ${contador} segundos`; // Actualizar el texto del botón
+    
+                if (contador === 0) {
+                    clearInterval(interval); // Detener el conteo
+                    document.getElementById("imagen-hermano").style.filter = "blur(0px)"; // Quitar el desenfoque
+                    revealBtn.classList.add("hidden"); // Ocultar el botón
+                    document.getElementById("ver-mas-btn").classList.remove("hidden"); // Mostrar el botón "Ver más"
+                }
+            }, 1000); // 1 segundo para cada paso en el conteo
+        }
+    </script>
+</body>
+</html>
